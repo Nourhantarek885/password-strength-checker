@@ -3,6 +3,7 @@ const strengthElement = document.getElementById("strength");
 const messageElement = document.getElementById("message");
 
 const strengthFill = document.getElementById("strength-fill");
+const togglePassword = document.getElementById("togglePassword");
 
 const lengthRequirement = document.getElementById("length");
 const uppercaseRequirement = document.getElementById("uppercase");
@@ -96,3 +97,18 @@ function updateRequirement(element, condition, text) {
         element.textContent = "❌ " + text;
     }
 }
+togglePassword.addEventListener("click", function () {
+
+    if (passwordInput.type === "password") {
+
+        passwordInput.type = "text";
+        togglePassword.textContent = "🙈";
+
+    } else {
+
+        passwordInput.type = "password";
+        togglePassword.textContent = "👁️";
+
+    }
+
+});
