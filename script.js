@@ -2,6 +2,8 @@ const passwordInput = document.getElementById("password");
 const strengthElement = document.getElementById("strength");
 const messageElement = document.getElementById("message");
 
+const strengthFill = document.getElementById("strength-fill");
+
 const lengthRequirement = document.getElementById("length");
 const uppercaseRequirement = document.getElementById("uppercase");
 const lowercaseRequirement = document.getElementById("lowercase");
@@ -33,6 +35,35 @@ passwordInput.addEventListener("input", function () {
     if (hasSpecial) score++;
 
     if (password.length === 0) {
+
+    strengthElement.textContent = "";
+    messageElement.textContent = "";
+    strengthFill.style.width = "0%";
+
+} else if (score <= 2) {
+
+    strengthElement.textContent = "🔴 Weak";
+    messageElement.textContent =
+        "Try to meet more of the requirements.";
+
+    strengthFill.style.width = "40%";
+
+} else if (score <= 4) {
+
+    strengthElement.textContent = "🟡 Medium";
+    messageElement.textContent =
+        "Good start! Try to meet all requirements.";
+
+    strengthFill.style.width = "70%";
+
+} else {
+
+    strengthElement.textContent = "🟢 Strong";
+    messageElement.textContent =
+        "Great! All basic requirements are met.";
+
+    strengthFill.style.width = "100%";
+}
 
         strengthElement.textContent = "";
         messageElement.textContent = "";
