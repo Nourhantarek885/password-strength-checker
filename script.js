@@ -2,31 +2,35 @@ const passwordInput = document.getElementById("password");
 const strengthElement = document.getElementById("strength");
 const messageElement = document.getElementById("message");
 
+const lengthRequirement = document.getElementById("length");
+const uppercaseRequirement = document.getElementById("uppercase");
+const lowercaseRequirement = document.getElementById("lowercase");
+const numberRequirement = document.getElementById("number");
+const specialRequirement = document.getElementById("special");
+
 passwordInput.addEventListener("input", function () {
 
     const password = passwordInput.value;
 
+    const hasLength = password.length >= 8;
+    const hasUppercase = /[A-Z]/.test(password);
+    const hasLowercase = /[a-z]/.test(password);
+    const hasNumber = /[0-9]/.test(password);
+    const hasSpecial = /[^A-Za-z0-9]/.test(password);
+
+    updateRequirement(lengthRequirement, hasLength, "At least 8 characters");
+    updateRequirement(uppercaseRequirement, hasUppercase, "Contains an uppercase letter");
+    updateRequirement(lowercaseRequirement, hasLowercase, "Contains a lowercase letter");
+    updateRequirement(numberRequirement, hasNumber, "Contains a number");
+    updateRequirement(specialRequirement, hasSpecial, "Contains a special character");
+
     let score = 0;
 
-    if (password.length >= 8) {
-        score++;
-    }
-
-    if (/[A-Z]/.test(password)) {
-        score++;
-    }
-
-    if (/[a-z]/.test(password)) {
-        score++;
-    }
-
-    if (/[0-9]/.test(password)) {
-        score++;
-    }
-
-    if (/[^A-Za-z0-9]/.test(password)) {
-        score++;
-    }
+    if (hasLength) score++;
+    if (hasUppercase) score++;
+    if (hasLowercase) score++;
+    if (hasNumber) score++;
+    if (hasSpecial) score++;
 
     if (password.length === 0) {
 
@@ -37,19 +41,27 @@ passwordInput.addEventListener("input", function () {
 
         strengthElement.textContent = "🔴 Weak";
         messageElement.textContent =
-            "Try using a longer password with different character types.";
+            "Try to meet more of the requirements.";
 
     } else if (score <= 4) {
 
         strengthElement.textContent = "🟡 Medium";
         messageElement.textContent =
-            "Good start! Consider adding more variety.";
+            "Good start! Try to meet all requirements.";
 
     } else {
 
         strengthElement.textContent = "🟢 Strong";
         messageElement.textContent =
-            "Great! This password meets several basic strength checks.";
-
+            "Great! All basic requirements are met.";
     }
 });
+
+function updateRequirement(element, condition, text) {
+
+    if (condition) {
+        element.textContent = "✅ " + text;
+    } else {
+        element.textContent = "❌ " + text;
+    }
+}
