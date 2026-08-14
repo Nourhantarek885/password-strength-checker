@@ -3,13 +3,26 @@ const strengthElement = document.getElementById("strength");
 const messageElement = document.getElementById("message");
 
 const strengthFill = document.getElementById("strength-fill");
-const togglePassword = document.getElementById("togglePassword");
 
 const lengthRequirement = document.getElementById("length");
 const uppercaseRequirement = document.getElementById("uppercase");
 const lowercaseRequirement = document.getElementById("lowercase");
 const numberRequirement = document.getElementById("number");
 const specialRequirement = document.getElementById("special");
+
+const togglePassword = document.getElementById("togglePassword");
+
+togglePassword.addEventListener("click", function () {
+
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        togglePassword.textContent = "🙈";
+    } else {
+        passwordInput.type = "password";
+        togglePassword.textContent = "👁️";
+    }
+
+});
 
 passwordInput.addEventListener("input", function () {
 
@@ -37,37 +50,9 @@ passwordInput.addEventListener("input", function () {
 
     if (password.length === 0) {
 
-    strengthElement.textContent = "";
-    messageElement.textContent = "";
-    strengthFill.style.width = "0%";
-
-} else if (score <= 2) {
-
-    strengthElement.textContent = "🔴 Weak";
-    messageElement.textContent =
-        "Try to meet more of the requirements.";
-
-    strengthFill.style.width = "40%";
-
-} else if (score <= 4) {
-
-    strengthElement.textContent = "🟡 Medium";
-    messageElement.textContent =
-        "Good start! Try to meet all requirements.";
-
-    strengthFill.style.width = "70%";
-
-} else {
-
-    strengthElement.textContent = "🟢 Strong";
-    messageElement.textContent =
-        "Great! All basic requirements are met.";
-
-    strengthFill.style.width = "100%";
-}
-
         strengthElement.textContent = "";
         messageElement.textContent = "";
+        strengthFill.style.width = "0%";
 
     } else if (score <= 2) {
 
@@ -75,17 +60,23 @@ passwordInput.addEventListener("input", function () {
         messageElement.textContent =
             "Try to meet more of the requirements.";
 
+        strengthFill.style.width = "40%";
+
     } else if (score <= 4) {
 
         strengthElement.textContent = "🟡 Medium";
         messageElement.textContent =
             "Good start! Try to meet all requirements.";
 
+        strengthFill.style.width = "70%";
+
     } else {
 
         strengthElement.textContent = "🟢 Strong";
         messageElement.textContent =
             "Great! All basic requirements are met.";
+
+        strengthFill.style.width = "100%";
     }
 });
 
@@ -97,18 +88,3 @@ function updateRequirement(element, condition, text) {
         element.textContent = "❌ " + text;
     }
 }
-togglePassword.addEventListener("click", function () {
-
-    if (passwordInput.type === "password") {
-
-        passwordInput.type = "text";
-        togglePassword.textContent = "🙈";
-
-    } else {
-
-        passwordInput.type = "password";
-        togglePassword.textContent = "👁️";
-
-    }
-
-});
